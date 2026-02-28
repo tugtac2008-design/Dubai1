@@ -57,7 +57,11 @@ if "secret_number" not in st.session_state:
 st.write("Guess the secret number between 1 and 100.")
 st.write(f"You have {st.session_state.max_attempts} attempts.")
 
-guess = st.number_input("Type your guess:", min_value=1, max_value=100, step=1)
+guess_input = st.text_input("Type your guess (1-100):")
+
+guess = None
+if guess_input.isdigit():
+    guess = int(guess_input)
 
 if st.button("Guess Now 🚀") and not st.session_state.game_over and username:
     st.session_state.attempts += 1
@@ -105,3 +109,4 @@ if st.button("Restart Game 🔄"):
     st.session_state.attempts = 0
     st.session_state.game_over = False
     st.rerun()
+
